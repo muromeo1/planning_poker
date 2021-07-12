@@ -6,8 +6,7 @@ class User
     requires :email, :password
 
     def call
-      user_authenticated?
-      return_token
+      user_authenticated? ? return_token : raise_error
     rescue StandardError => e
       context.fail!(error: e.message)
     end
@@ -19,11 +18,15 @@ class User
     end
 
     def user_authenticated?
-      raise 'Invalid credentials' unless user&.authenticate(password)
+      user&.authenticate(password)
     end
 
     def return_token
       context.token = JsonWebToken.encode(user_id: user.id)
+    end
+
+    def raise_error
+      raise 'Invalid credentials'
     end
   end
 end

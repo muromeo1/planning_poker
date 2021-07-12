@@ -13,5 +13,12 @@ RSpec.describe ::User::Authenticate, type: :interactor do
       it { expect(interactor).to be_a_success }
       it { expect(interactor.token).to be_present }
     end
+
+    context 'When has wrong credentials' do
+      let(:params) { { email: 'aaa@bbb.com', password: '123' } }
+
+      it { expect(interactor).to be_a_failure }
+      it { expect(interactor.error).to match('Invalid credentials') }
+    end
   end
 end
