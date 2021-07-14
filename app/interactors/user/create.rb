@@ -12,7 +12,7 @@ class User
       user_exists?
       create_user
       authenticate_user
-    rescue => e
+    rescue StandardError => e
       context.fail!(error: e.message)
     end
 
