@@ -6,6 +6,7 @@ RSpec.describe User::Create, type: :interactor do
 
     let(:params) { {} }
     let(:random_pass) { Faker::Internet.password }
+    let(:user) { create(:user) }
     let(:correct_params) do
       {
         name: Faker::Name.name,
@@ -19,6 +20,19 @@ RSpec.describe User::Create, type: :interactor do
       let(:params) { correct_params }
 
       it { expect(interactor.user.email).to eq(correct_params[:email]) }
+      it { expect(interactor.token).to be_present }
+    end
+
+    context 'When email is already registered' do
+      let(:params) { correct_params.merge({ email: user.email }) }
+
+      it { expect(interactor.error).to match(/registered/) }
+    end
+
+    context 'When email has especial characters' do
+      let(:params) { correct_params.merge({ email: 'Émaäíl@asldk.com' }) }
+
+      it { expect(interactor.user.email).to eq('emaail@asldk.com') }
       it { expect(interactor.token).to be_present }
     end
   end
