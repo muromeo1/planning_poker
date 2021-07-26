@@ -47,7 +47,5 @@ jobs:
     #  run: rm -rf Gemfile.lock && bundle
     - name: Prepare DB
       run: bundle exec rake db:setup
-    - name: Rubocop checks
-      run: bundle exec rubocop
-    - name: Run tests
-      run: bundle exec rake
+    - name: Run makefile
+      run: make build
