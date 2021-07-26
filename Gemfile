@@ -14,10 +14,14 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
-  gem 'factory_bot_rails'
-  gem 'faker'
   gem 'pry'
   gem 'reek'
   gem 'rspec-rails'
   gem 'rubocop'
+end
+
+group :test do
+  gem 'database_cleaner-active_record'
+  gem 'factory_bot_rails'
+  gem 'faker'
 end
