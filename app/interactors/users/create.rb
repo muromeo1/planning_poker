@@ -1,4 +1,4 @@
-class User
+module Users
   class Create
     include Interactor
     include BaseInteractor
@@ -12,8 +12,8 @@ class User
       user_exists?
       create_user
       authenticate_user
-    rescue StandardError => e
-      context.fail!(error: e.message)
+    rescue StandardError => error
+      context.fail!(error: error.message)
     end
 
     private
@@ -35,7 +35,7 @@ class User
     end
 
     def authenticate_user
-      context.token = User::Authenticate.call(user: user_email, password: password)
+      context.token = Users::Authenticate.call(user: user_email, password: password)
     end
   end
 end

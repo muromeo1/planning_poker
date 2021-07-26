@@ -56,12 +56,16 @@ module BaseInteractor
         args.each do |arg|
           next if method_valid?(arg)
 
-          translation = I18n.t(i18n_path + ".#{arg}", default: '')
-          message     = translation.present? ? translation : "##{arg} returned false"
-
-          context.fail!(error: message)
+          context.fail!(error: parse_error_message(arg, i18n_path))
         end
       end
+    end
+
+    private
+
+    def parse_error_message(arg, i18n_path)
+      translation = I18n.t(i18n_path + ".#{arg}", default: '')
+      translation.present? ? translation : "##{arg} returned false"
     end
   end
 end

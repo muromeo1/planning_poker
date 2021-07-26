@@ -1,4 +1,4 @@
-class User
+module Users
   class Authenticate
     include Interactor
     include BaseInteractor
@@ -7,8 +7,8 @@ class User
 
     def call
       user_authenticated? ? return_token : raise_error
-    rescue StandardError => e
-      context.fail!(error: e.message)
+    rescue StandardError => error
+      context.fail!(error: error.message)
     end
 
     private

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe User::Create, type: :interactor do
+RSpec.describe Users::Create, type: :interactor do
   describe '.call' do
     subject(:interactor) { described_class.call(params) }
 

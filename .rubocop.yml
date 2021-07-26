@@ -21,3 +21,6 @@ Metrics/BlockLength:
 
 Layout/LineLength:
   Max: 140
+
+Naming/RescuedExceptionsVariableName:
+  Enabled: false
