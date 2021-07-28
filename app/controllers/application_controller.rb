@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::API
-  before_action :authenticate
+  before_action :authorize
 
   def current_user
     @current_user ||= authorize_token.user
@@ -11,7 +11,7 @@ class ApplicationController < ActionController::API
 
   private
 
-  def authenticate
+  def authorize
     authorize_token.success? ? current_user : render_json(error: authorize_token.error)
   end
 

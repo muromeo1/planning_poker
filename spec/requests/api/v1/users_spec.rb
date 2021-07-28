@@ -20,12 +20,12 @@ RSpec.describe Api::V1::UsersController, type: :request do
     it { expect(parsed_response['token']).to be_present }
   end
 
-  describe 'GET /users/login' do
+  describe 'GET /users/authenticate' do
     let(:user) { create(:user) }
     let(:params) { { email: user.email, password: user.password } }
 
     before do
-      get '/api/v1/users/login', params: params
+      get '/api/v1/users/authenticate', params: params
     end
 
     it { expect(parsed_response['token']).to be_present }

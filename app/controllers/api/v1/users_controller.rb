@@ -1,7 +1,7 @@
 module Api
   module V1
     class UsersController < ApplicationController
-      skip_before_action :authenticate, only: %i[create login]
+      skip_before_action :authorize, only: %i[create authenticate]
 
       def create
         result = Users::Create.call(user_params)
@@ -13,7 +13,7 @@ module Api
         end
       end
 
-      def login
+      def authenticate
         result = Users::Authenticate.call(user_params)
 
         if result.success?

@@ -3,7 +3,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :users, only: [:create] do
         collection do
-          get 'login', to: 'login'
+          get 'authenticate', to: 'authenticate'
         end
       end
     end
