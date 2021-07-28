@@ -5,5 +5,9 @@ detectors:
   UtilityFunction:
     public_methods_only: true
 
+  UncommunicativeModuleName:
+    accept:
+      - V1
+
 exclude_paths:
   - db
