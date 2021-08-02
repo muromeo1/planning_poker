@@ -1,6 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::UsersController, type: :request do
+  subject(:controller) do
+    request, route = self.class.description.split
+    send(request, route, params: params)
+  end
+
   let(:random_pass) { Faker::Internet.password }
   let(:parsed_response) { JSON.parse(response.body) }
   let(:params) do
@@ -12,21 +17,17 @@ RSpec.describe Api::V1::UsersController, type: :request do
     }.as_json
   end
 
-  describe 'POST /users' do
-    before do
-      post '/api/v1/users', params: params
-    end
+  before do
+    controller
+  end
 
+  describe 'post /api/v1/users' do
     it { expect(parsed_response['token']).to be_present }
   end
 
-  describe 'GET /users/authenticate' do
+  describe 'get /api/v1/users/authenticate' do
     let(:user) { create(:user) }
     let(:params) { { email: user.email, password: user.password } }
-
-    before do
-      get '/api/v1/users/authenticate', params: params
-    end
 
     it { expect(parsed_response['token']).to be_present }
   end
